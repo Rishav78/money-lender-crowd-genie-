@@ -15,11 +15,11 @@ class ProtectedRoute extends Component{
     }
 
     componentDidMount() {
-        fire.auth().onAuthStateChanged( async user => {
+        fire.auth().onAuthStateChanged( user => {
             if (user) {
-                await this.setState({ authenticated: true});
+                return this.setState({ isLoading: false, authenticated: true });
             }
-            await this.setState({ isLoading: false });
+            return this.setState({ isLoading: false, authenticated: false });
         });
     }
 

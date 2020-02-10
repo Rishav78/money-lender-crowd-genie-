@@ -4,26 +4,27 @@ import Button from '@material-ui/core/Button';
 import { fire } from '../../config/firebase';
 import styles from './styles';
 
-function handleFormSubmit(email, password) {
-    return async function(e) {
-        e.preventDefault();
-        try {
-            const res = await fire.auth().signInWithEmailAndPassword(email, password);
-        } catch (err) {
-            console.log(err)
-        }
-    }
-}
-
 function Login(props) {
     const [email, onChangeEmail] = useState('');
     const [password, onChangePassword] = useState('');
+
+    function handleFormSubmit() {
+        return async function(e) {
+            e.preventDefault();
+            try {
+                await fire.auth().signInWithEmailAndPassword(email, password);
+                props.history.push('/home')
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
 
     return (
         <div style={ styles.loginform }>
             <form 
                 style={ styles.form }
-                onSubmit={handleFormSubmit(email, password)}>
+                onSubmit={handleFormSubmit()}>
 
                 <TextField 
                     fullWidth
@@ -50,4 +51,4 @@ function Login(props) {
     );
 }
 
-export default Login
+export default Login;

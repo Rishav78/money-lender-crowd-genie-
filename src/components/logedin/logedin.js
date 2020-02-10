@@ -13,10 +13,12 @@ class Logedin extends Component{
 
     componentDidMount() {
         fire.auth().onAuthStateChanged( async user => {
+            const isLoading = false;
+            let authenticated = false;
             if (user) {
-                await this.setState({ authenticated: true});
+                authenticated = true
             }
-            await this.setState({ isLoading: false });
+            await this.setState({ authenticated, isLoading });
         });
     }
 

@@ -6,6 +6,7 @@ import Home from './components/home/home';
 import ProtectedRoute from './components/protectedroute/protectedroute';
 import './App.css';
 import Logedin from './components/logedin/logedin';
+import Admin from './components/admin/admin';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Switch>
           <Logedin exact path="/" component={Login} />
           <Logedin path="/signup" component={Signup} />
-          <ProtectedRoute path="/home" component={Home} />
+          <ProtectedRoute path="/home" component={Admin} />
         </Switch>
       </Router>
     </div>
