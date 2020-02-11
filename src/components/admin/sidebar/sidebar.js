@@ -7,13 +7,14 @@ import LockIcon from '@material-ui/icons/Lock';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './style.css';
 import { fire } from '../../../config/firebase';
+import { Link } from 'react-router-dom';
 
 function logout(props) {
     
     return async function(e) {
         try{
             await fire.auth().signOut();
-            props.history.push('/');
+            // props.history.push('/');
         } catch (err) {
             console.log(err);
         }
@@ -23,7 +24,6 @@ function logout(props) {
 function Sidebar(props) {
 
     const [showmore, onChangeShowmore] = useState(false);
-
     return (
         <div className="adminsidebar" style={{ height: '100%', width: showmore ? null : '60px', overflow: 'hidden', backgroundColor: '#333', color: 'white' }}>
             <Menuoption 
@@ -31,18 +31,27 @@ function Sidebar(props) {
                 onClick={() => onChangeShowmore(!showmore)}
                 Icon={MenuIcon}
             />
-            <Menuoption 
-                title="Money Lenders"
-                Icon={AttachMoneyIcon}
-            />
-            <Menuoption 
-                title="Users"
-                Icon={PersonIcon}
-            />
-            <Menuoption 
-                title="Change Password"
-                Icon={LockIcon}
-            />
+            <Link to="/home/moneylender">
+                <Menuoption 
+                    title="Money Lenders"
+                    active={props.location.pathname == '/home/moneylender'}
+                    Icon={AttachMoneyIcon}
+                />
+            </Link>
+            <Link to="/home/users">
+                <Menuoption 
+                    title="Users"
+                    active={props.location.pathname == '/home/users'}
+                    Icon={PersonIcon}
+                />
+            </Link>
+            <Link to="/home/changepassword">
+                <Menuoption 
+                    title="Change Password"
+                    active={props.location.pathname == '/home/changepassword'}
+                    Icon={LockIcon}
+                />
+            </Link>
             <Menuoption 
                 title="Logout"
                 onClick={logout(props)}

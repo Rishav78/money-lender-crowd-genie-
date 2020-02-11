@@ -2,3 +2,10 @@
     transition: 1s ;
     cursor: pointer;
 }
+a {
+    color: white;
+    text-decoration: none;
+}
+.admin-sidebar-menuoption:hover {
+    background-color: #1976d2;
+}

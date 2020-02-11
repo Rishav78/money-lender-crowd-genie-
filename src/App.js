@@ -7,6 +7,7 @@ import ProtectedRoute from './components/protectedroute/protectedroute';
 import './App.css';
 import Logedin from './components/logedin/logedin';
 import Admin from './components/admin/admin';
+import ChangePassword from './components/changepassword/changepassword';
 
 function App() {
   return (
