@@ -31,10 +31,10 @@ function Sidebar(props) {
                 onClick={() => onChangeShowmore(!showmore)}
                 Icon={MenuIcon}
             />
-            <Link to="/home/moneylender">
+            <Link to="/home/moneylenders">
                 <Menuoption 
                     title="Money Lenders"
-                    active={props.location.pathname == '/home/moneylender'}
+                    active={props.location.pathname == '/home/moneylenders'}
                     Icon={AttachMoneyIcon}
                 />
             </Link>

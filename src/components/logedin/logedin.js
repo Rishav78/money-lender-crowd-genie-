@@ -26,7 +26,7 @@ class Logedin extends Component{
         const { component:Components, ...rest } = this.props;
         return (
             this.state.isLoading ? <div></div> :
-            this.state.authenticated ? <Redirect to="/home" />:
+            this.state.authenticated ? <Redirect to="/home/moneylenders" />:
             <Route {...rest} render={(props) => <Components {...props} />} />
         )
     }

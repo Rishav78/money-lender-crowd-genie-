@@ -44,7 +44,7 @@ function Signup(props) {
             }
             try {
                 await fire.auth().createUserWithEmailAndPassword(email, password);
-                const data = { firstname, lastname, role };
+                const data = { email, firstname, lastname, role, active: true };
                 if(role === 1) data.money = money;
                 savedata(data);
                 props.history.push('/home');
