@@ -31,24 +31,24 @@ function Sidebar(props) {
                 onClick={() => onChangeShowmore(!showmore)}
                 Icon={MenuIcon}
             />
-            <Link to="/home/moneylenders">
+            <Link to="/admin/moneylenders">
                 <Menuoption 
                     title="Money Lenders"
-                    active={props.location.pathname == '/home/moneylenders'}
+                    active={props.location.pathname == '/admin/moneylenders'}
                     Icon={AttachMoneyIcon}
                 />
             </Link>
-            <Link to="/home/users">
+            <Link to="/admin/users">
                 <Menuoption 
                     title="Users"
-                    active={props.location.pathname == '/home/users'}
+                    active={props.location.pathname == '/admin/users'}
                     Icon={PersonIcon}
                 />
             </Link>
-            <Link to="/home/changepassword">
+            <Link to="/admin/changepassword">
                 <Menuoption 
                     title="Change Password"
-                    active={props.location.pathname == '/home/changepassword'}
+                    active={props.location.pathname == '/admin/changepassword'}
                     Icon={LockIcon}
                 />
             </Link>

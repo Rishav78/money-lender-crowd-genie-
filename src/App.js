@@ -16,7 +16,7 @@ function App() {
         <Switch>
           <Logedin exact path="/" component={Login} />
           <Logedin path="/signup" component={Signup} />
-          <ProtectedRoute path="/home" component={Admin} />
+          <ProtectedRoute path="/admin" component={Admin} />
         </Switch>
       </Router>
     </div>

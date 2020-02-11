@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import './style.css';
-import { fire } from '../../config/firebase';
+import { fire } from '../../../../config/firebase';
 
 const columns = [
     {
@@ -24,8 +24,14 @@ const columns = [
         center: true
     },
     {
+        name: 'Money (Ruppes)',
+        selector: 'money',
+        sortable: true,
+        center: true
+    },
+    {
         name: 'Action',
-        cell: row => (
+        cell: _ => (
             <div>
                 <HighlightOffIcon
                     className="delete-money-lender"
@@ -42,17 +48,19 @@ const columns = [
 function Users(props) {
 
     const [data, onChangeData] = useState([]);
+    const [progress,onChangeProgress] = useState(true);
 
     useEffect( () => {
-        fire.database().ref().child('user').orderByChild('role').equalTo(0).on('value', users => {
-            const usersobject = users.val();
-            if (usersobject) {
-                const values = Object.values(usersobject);
-                const userdata = values.map( (user, i) => {
-                    user.id = i;
-                    return user;
+        fire.database().ref().child('user').orderByChild('role').equalTo(1).on('value', lenders => {
+            const leadersobject = lenders.val();
+            if (leadersobject) {
+                const values = Object.values(leadersobject);
+                const lendersdata = values.map( (lender, i) => {
+                    lender.id = i;
+                    return lender;
                 });
-                onChangeData(userdata);
+                onChangeData(lendersdata);
+                onChangeProgress(false);
             }
         })
     }, []);
@@ -60,9 +68,10 @@ function Users(props) {
     return (
         <div>
             <DataTable 
-                title="Users"
+                title="Money Lenders"
                 columns={columns}
                 data={data}
+                progressPending={progress}
             />
         </div>
     );
