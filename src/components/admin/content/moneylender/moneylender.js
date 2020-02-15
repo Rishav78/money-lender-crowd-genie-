@@ -53,6 +53,7 @@ function Users(props) {
     useEffect( () => {
         fire.database().ref().child('user').orderByChild('role').equalTo(1).on('value', lenders => {
             const leadersobject = lenders.val();
+            console.log(leadersobject)
             if (leadersobject) {
                 const values = Object.values(leadersobject);
                 const lendersdata = values.map( (lender, i) => {
@@ -64,6 +65,8 @@ function Users(props) {
             }
         })
     }, []);
+
+    console.log('2345678ijbvcdr67')
 
     return (
         <div>

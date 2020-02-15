@@ -1,4 +1,5 @@
 import React from 'react';
+import Sidebar from './sidebar/sidebar';
 import { fire } from '../../config/firebase';
 
 function logout(props) {
@@ -13,7 +14,6 @@ function logout(props) {
     }
 }
 
-
 function Container(props) {
     return (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -21,7 +21,17 @@ function Container(props) {
                 <button onClick={logout(props)}>logout</button>
             </div>
             <div style={{ flex: 1}}>
-                {props.children}
+                <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row'}}>
+                    <div> 
+                        <Sidebar
+                            history={props.history}
+                            location={props.location}
+                            options={props.sidebarOptions} />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        { props.children }
+                    </div>
+                </div>
             </div>
         </div>
     );
