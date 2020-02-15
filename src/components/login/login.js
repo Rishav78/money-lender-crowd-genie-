@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { fire } from '../../config/firebase';
 import styles from './styles';
 
@@ -13,7 +12,22 @@ function Login(props) {
             e.preventDefault();
             try {
                 await fire.auth().signInWithEmailAndPassword(email, password);
-                props.history.push('/home')
+                const ref = fire.database().ref().child('user').orderByChild('email').equalTo(email);
+                ref.on('value', userinformation => {
+                    const [data] = Object.values(userinformation.val())
+                    const { active, role } = data;
+                    if ( !active ) {
+                        return alert('This account is deactivated');
+                    } else {
+                        if ( role === 0 ) {
+                            props.history.push('/admin/moneylenders')
+                        } else if ( role == 1 ) {
+                            props.history.push('/user/moneylenders')
+                        } else {
+                            props.history.push('/moneylender/users')
+                        }
+                    }
+                });
             } catch (err) {
                 console.log(err)
             }

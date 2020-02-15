@@ -4,7 +4,6 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import { fire } from '../../config/firebase';
 import styles from './styles';
 
@@ -31,7 +30,7 @@ function Signup(props) {
     const [email, onChangeEmail] = useState('');
     const [firstname, onChangeFirstname] = useState('');
     const [lastname, onChangeLastname] = useState('');
-    const [role, onChangeRole] = useState(0);
+    const [role, onChangeRole] = useState(1);
     const [money, onChangeMoney] = useState(0);
     const [password, onChangePassword] = useState('');
     const [confirmpassword, onChangeConfirmpassword] = useState('');
@@ -45,9 +44,15 @@ function Signup(props) {
             try {
                 await fire.auth().createUserWithEmailAndPassword(email, password);
                 const data = { email, firstname, lastname, role, active: true };
-                if(role === 1) data.money = money;
+                if(role === 2) data.money = money;
                 savedata(data);
-                props.history.push('/home');
+                if ( role === 0 ) {
+                    props.history.push('/admin/moneylenders')
+                } else if ( role == 1 ) {
+                    props.history.push('/user/moneylenders')
+                } else {
+                    props.history.push('/moneylender/users')
+                }
             } catch (err) {
                 console.log(err)
             }
@@ -113,12 +118,12 @@ function Signup(props) {
                         <MenuItem value="" disabled>
                             None
                         </MenuItem>
-                        <MenuItem value={0}>User</MenuItem>
-                        <MenuItem value={1}>Lender</MenuItem>
+                        <MenuItem value={1}>User</MenuItem>
+                        <MenuItem value={2}>Lender</MenuItem>
 
                     </Select>
                 </FormControl>
-                { role === 1 && 
+                { role === 2 && 
                 <TextField 
                     fullWidth
                     required

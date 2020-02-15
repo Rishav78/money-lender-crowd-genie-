@@ -29,21 +29,21 @@ function Admin(props) {
         <Link to="/admin/moneylenders" key={0}>
             <Menuoption 
                 title="Money Lenders"
-                active={props.location.pathname == '/admin/moneylenders'}
+                active={props.location.pathname === '/admin/moneylenders'}
                 Icon={AttachMoneyIcon}
             />
         </Link>,
         <Link to="/admin/users" key={1}>
             <Menuoption 
                 title="Users"
-                active={props.location.pathname == '/admin/users'}
+                active={props.location.pathname === '/admin/users'}
                 Icon={PersonIcon}
             />
         </Link>,
         <Link to="/admin/changepassword" key={2}>
             <Menuoption 
                 title="Change Password"
-                active={props.location.pathname == '/admin/changepassword'}
+                active={props.location.pathname === '/admin/changepassword'}
                 Icon={LockIcon}
             />
         </Link>,
