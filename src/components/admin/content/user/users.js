@@ -44,19 +44,23 @@ function Users(props) {
     const [data, onChangeData] = useState([]);
     const [progress,onChangeProgress] = useState(true);
 
+    function getAllUsers(users) {
+        const usersobject = users.val();
+        if (usersobject) {
+            const values = Object.values(usersobject);
+            const userdata = values.map( (user, i) => {
+                user.id = i;
+                return user;
+            });
+            onChangeData(userdata);
+            onChangeProgress(false);
+        }
+    }
+
     useEffect( () => {
-        fire.database().ref().child('user').orderByChild('role').equalTo(0).on('value', users => {
-            const usersobject = users.val();
-            if (usersobject) {
-                const values = Object.values(usersobject);
-                const userdata = values.map( (user, i) => {
-                    user.id = i;
-                    return user;
-                });
-                onChangeData(userdata);
-                onChangeProgress(false);
-            }
-        })
+        const ref = fire.database().ref().child('user').orderByChild('role').equalTo(0);
+        ref.on('value', getAllUsers);
+        return () => ref.off('value', getAllUsers);
     }, []);
 
     return (

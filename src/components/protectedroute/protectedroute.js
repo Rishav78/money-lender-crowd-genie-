@@ -15,11 +15,12 @@ class ProtectedRoute extends Component{
     }
 
     componentDidMount() {
-        fire.auth().onAuthStateChanged( user => {
+        const unsubscribe = fire.auth().onAuthStateChanged( user => {
             if (user) {
                 return this.setState({ isLoading: false, authenticated: true });
             }
             return this.setState({ isLoading: false, authenticated: false });
+            unsubscribe();
         });
     }
 

@@ -7,6 +7,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { fire } from '../../config/firebase';
 import Container from '../container/container';
 import Menuoption from '../menuoption/menuoption';
+import Content from './content/content';
 
 
 function Users(props) {
@@ -24,21 +25,21 @@ function Users(props) {
     }
 
     const sidebarOptions = [
-        <Link to="/user/moneylenders">
+        <Link to="/user/moneylenders" key={0}>
             <Menuoption 
                 title="Money Lenders"
                 active={props.location.pathname == '/user/moneylenders'}
                 Icon={AttachMoneyIcon}
             />
         </Link>,
-        <Link to="/user/loans">
+        <Link to="/user/loans" key={1}>
             <Menuoption 
                 title="Loans"
                 active={props.location.pathname == '/user/loans'}
                 Icon={AccountBalanceIcon}
             />
         </Link>,
-        <Link to="/user/changepassword">
+        <Link to="/user/changepassword" key={2}>
             <Menuoption 
                 title="Change Password"
                 active={props.location.pathname == '/user/changepassword'}
@@ -46,6 +47,7 @@ function Users(props) {
             />
         </Link>,
         <Menuoption 
+            key={3}
             title="Logout"
             onClick={logout(props)}
             Icon={ExitToAppIcon}
@@ -58,6 +60,8 @@ function Users(props) {
             history={props.history}
             sidebarOptions={sidebarOptions}>
             
+            <Content />
+
         </Container>
     );
 }
