@@ -16,9 +16,9 @@ function App() {
         <Switch>
           <Logedin exact path="/" component={Login} />
           <Logedin path="/signup" component={Signup} />
-          <ProtectedRoute path="/admin" component={Admin} />
-          <ProtectedRoute path="/user" component={Users} />
-          <ProtectedRoute path="/moneylender" component={Moneylender} />
+          <ProtectedRoute path="/admin" role={0} component={Admin} />
+          <ProtectedRoute path="/user" role={1} component={Users} />
+          <ProtectedRoute path="/moneylender" role={2} component={Moneylender} />
         </Switch>
       </Router>
     </div>
