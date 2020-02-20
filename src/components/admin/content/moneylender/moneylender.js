@@ -45,13 +45,13 @@ const columns = [
     },
 ];
 
-function Users(props) {
+function Moneylender(props) {
 
     const [data, onChangeData] = useState([]);
     const [progress,onChangeProgress] = useState(true);
 
     useEffect( () => {
-        fire.database().ref().child('user').orderByChild('role').equalTo(1).on('value', lenders => {
+        fire.database().ref().child('user').orderByChild('role').equalTo(2).on('value', lenders => {
             const leadersobject = lenders.val();
             if (leadersobject) {
                 const values = Object.values(leadersobject);
@@ -60,8 +60,8 @@ function Users(props) {
                     return lender;
                 });
                 onChangeData(lendersdata);
-                onChangeProgress(false);
             }
+            onChangeProgress(false);
         })
     }, []);
 
@@ -77,4 +77,4 @@ function Users(props) {
     );
 }
 
-export default Users;
+export default Moneylender;

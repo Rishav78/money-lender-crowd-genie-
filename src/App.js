@@ -7,6 +7,7 @@ import './App.css';
 import Logedin from './components/logedin/logedin';
 import Admin from './components/admin/admin';
 import Users from './components/users/users';
+import Moneylender from './components/moneylender/moneylender';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Logedin path="/signup" component={Signup} />
           <ProtectedRoute path="/admin" component={Admin} />
           <ProtectedRoute path="/user" component={Users} />
+          <ProtectedRoute path="/moneylender" component={Moneylender} />
         </Switch>
       </Router>
     </div>

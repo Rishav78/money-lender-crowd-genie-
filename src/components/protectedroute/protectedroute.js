@@ -1,6 +1,5 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import { fire } from '../../config/firebase';
 
 

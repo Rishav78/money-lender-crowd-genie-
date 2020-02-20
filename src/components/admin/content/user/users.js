@@ -53,12 +53,12 @@ function Users(props) {
                 return user;
             });
             onChangeData(userdata);
-            onChangeProgress(false);
         }
+        onChangeProgress(false);
     }
 
     useEffect( () => {
-        const ref = fire.database().ref().child('user').orderByChild('role').equalTo(0);
+        const ref = fire.database().ref().child('user').orderByChild('role').equalTo(1);
         ref.on('value', getAllUsers);
         return () => ref.off('value', getAllUsers);
     }, []);

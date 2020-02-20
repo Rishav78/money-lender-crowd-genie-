@@ -1,0 +1,14 @@
+.delete-money-lender {
+    padding: 3px;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    border-radius: 5px;
+}
+.delete-money-lender:hover {
+    transition: 0.5s;
+    background-color: #e60000;
+}
+.delete-money-lender:active {
+    background-color: #990000;
+}
