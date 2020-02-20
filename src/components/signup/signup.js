@@ -35,7 +35,7 @@ function Signup(props) {
     const [password, onChangePassword] = useState('');
     const [confirmpassword, onChangeConfirmpassword] = useState('');
 
-    function handleFormSubmit() {
+    const handleFormSubmit = _ => {
         return async function(e) {
             e.preventDefault();
             if( !validation(email, password, confirmpassword) ) {
@@ -54,7 +54,7 @@ function Signup(props) {
                     props.history.push('/moneylender/users')
                 }
             } catch (err) {
-                console.log(err)
+                alert(err.message);
             }
         }
     }

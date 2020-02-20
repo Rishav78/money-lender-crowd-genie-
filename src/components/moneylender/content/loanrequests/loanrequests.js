@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import './style.css';
+import CheckIcon from '@material-ui/icons/Check';
 import { fire } from '../../../../config/firebase';
 
 const columns = [
@@ -12,23 +12,23 @@ const columns = [
         center: true
     },
     {
-        name: 'First Name',
-        selector: 'firstname',
-        sortable: true,
-        center: true
-    },
-    {
-        name: 'Last Name',
-        selector: 'lastname',
+        name: 'Money (Ruppes)',
+        selector: 'money',
         sortable: true,
         center: true
     },
     {
         name: 'Action',
-        cell: row => (
+        cell: _ => (
             <div>
                 <HighlightOffIcon
-                    className="delete-money-lender"
+                    className="actionbutton delete delete-request"
+                    style={{
+                        cursor: 'pointer'
+                    }}
+                />
+                <CheckIcon
+                    className="actionbutton accept accept-request"
                     style={{
                         cursor: 'pointer'
                     }}
@@ -39,37 +39,36 @@ const columns = [
     },
 ];
 
-function Users(props) {
-
+function LoanRequests(props) {
     const [data, onChangeData] = useState([]);
     const [progress,onChangeProgress] = useState(true);
 
-    const getAllUsers = users => {
-        const usersobject = users.val();
-        if (usersobject) {
-            const values = Object.values(usersobject);
-            const userdata = values.map( (user, i) => {
-                user.id = i;
-                return user;
-            });
-            onChangeData(userdata);
-        }
+    const getLoans = loans => {
+        if ( !loans.val() ) {
+            onChangeProgress(false);
+            return;
+        } 
+        const data = Object.values(loans.val());
+        onChangeData(data);
         onChangeProgress(false);
     }
 
     useEffect( () => {
 
-        const ref = fire.database().ref().child('user').orderByChild('role').equalTo(1);
-        ref.on('value', getAllUsers);
-        
-        return () => ref.off('value', getAllUsers);
+        const user = fire.auth().currentUser;
+        const { email } = user;
+        console.log(`${email}_false`)
+        const ref = fire.database().ref().child('loans').orderByChild('mle_accepted').equalTo(`${email}_false`);
+        ref.on('value', getLoans);
+
+        return () => ref.off('value', getLoans);
 
     }, []);
 
     return (
         <div>
             <DataTable 
-                title="Users"
+                title="Money Lenders"
                 columns={columns}
                 data={data}
                 progressPending={progress}
@@ -78,4 +77,4 @@ function Users(props) {
     );
 }
 
-export default Users;
+export default LoanRequests;

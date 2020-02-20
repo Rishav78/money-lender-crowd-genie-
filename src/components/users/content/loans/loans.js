@@ -53,20 +53,17 @@ function Loans(props) {
     const [progress, onChangeProgress] = useState(true);
     
     useEffect( () => {
-        const unsubscribe = fire.auth().onAuthStateChanged( async user => {
-            const { email } = user;
-            const ref = fire.database().ref().child('loans').orderByChild('email').equalTo(email);
-            ref.on('value', loans => {
-                console.log(loans.val())
-                if( loans.val() ) {
-                    const data = Object.values(loans.val());
-                    onChangeData(data);
-                }
-                onChangeProgress(false);
-            });
-
+        const user = fire.auth().currentUser;
+        const { email } = user;
+        const ref = fire.database().ref().child('loans').orderByChild('email').equalTo(email);
+        ref.on('value', loans => {
+            if( loans.val() ) {
+                const data = Object.values(loans.val());
+                onChangeData(data);
+            }
+            onChangeProgress(false);
         });
-        return () => unsubscribe();
+
     }, []);
 
     return (

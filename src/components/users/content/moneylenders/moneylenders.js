@@ -8,8 +8,9 @@ function requestLoan(moneylender) {
     const user = fire.auth().currentUser;
     const { email } = user;
     const { email:moneylenderemail, firstname:moneylendername } = moneylender;
+    const mle_accepted = `${moneylenderemail}_false`;
     const ref = fire.database().ref().child('loans');
-    ref.push({ money, email, moneylenderemail, moneylendername, accepted: false });
+    ref.push({ money, email, moneylenderemail, moneylendername, accepted: false, mle_accepted });
 }
 
 const columns = [
@@ -47,7 +48,7 @@ function Moneylender(props) {
     const [data, onChangeData] = useState([]);
     const [progress,onChangeProgress] = useState(true);
 
-    function getAllMoneylenders(lenders) {
+    const getAllMoneylenders = lenders => {
         const leadersobject = lenders.val();
         if (leadersobject) {
             const values = Object.values(leadersobject);

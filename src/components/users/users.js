@@ -12,8 +12,7 @@ import Content from './content/content';
 
 function Users(props) {
 
-    function logout(props) {
-    
+    const logout = _ => {
         return async function(e) {
             try{
                 await fire.auth().signOut();

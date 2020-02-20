@@ -7,11 +7,12 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { fire } from '../../config/firebase';
 import Container from '../container/container';
 import Menuoption from '../menuoption/menuoption';
+import Content from './content/content';
 
 
 function moneylender(props) {
 
-    function logout(props) {
+    const logout = _ => {
     
         return async function(e) {
             try{
@@ -24,24 +25,24 @@ function moneylender(props) {
     }
 
     const sidebarOptions = [
-        <Link to="/user/moneylenders" key={0}>
+        <Link to="/moneylender/users" key={0}>
             <Menuoption 
-                title="Money Lenders"
-                active={props.location.pathname == '/user/moneylenders'}
+                title="Users"
+                active={props.location.pathname == '/moneylender/users'}
                 Icon={AttachMoneyIcon}
             />
         </Link>,
-        <Link to="/user/loans" key={1}>
+        <Link to="/moneylender/loanrequests" key={1}>
             <Menuoption 
-                title="Loans"
-                active={props.location.pathname == '/user/loans'}
+                title="Loan Requests"
+                active={props.location.pathname == '/moneylender/loansrequests'}
                 Icon={AccountBalanceIcon}
             />
         </Link>,
-        <Link to="/user/changepassword" key={2}>
+        <Link to="/moneylender/changepassword" key={2}>
             <Menuoption 
                 title="Change Password"
-                active={props.location.pathname == '/user/changepassword'}
+                active={props.location.pathname == '/moneylender/changepassword'}
                 Icon={LockIcon}
             />
         </Link>,
@@ -59,7 +60,7 @@ function moneylender(props) {
             history={props.history}
             sidebarOptions={sidebarOptions}>
             
-            
+            <Content />
 
         </Container>
     );

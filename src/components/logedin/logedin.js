@@ -12,38 +12,31 @@ class Logedin extends Component{
         }
     }
 
-    authenticate = async user => {
-        const isLoading = false;
-        let authenticated = false;
-        if (user) {
-            authenticated = true
-        }
-        await this.setState({ authenticated, isLoading });
+    authenticate = async _ => {
+        fire.auth().onAuthStateChanged( user => {
+            if ( !user ) {
+                return this.setState({ isLoading: false, authenticated: false });
+            }
+            const { email } = user;
+            const ref = fire.database().ref().child('user').orderByChild('email').equalTo(email);
+            ref.on('value', async userinformation => {
+                const [data] = Object.values(userinformation.val());
+                const { role } = data;
+                if ( role === 0) {
+                    await this.setState({ redirect: '/admin/moneylenders'});
+                } else if ( role === 1 ) {
+                    await this.setState({ redirect: '/user/moneylenders' });
+                } else {
+                    await this.setState({ redirect: '/moneylender/users'});
+                }
+                await this.setState({ isLoading: false, authenticated: true });
+                ref.off('value');
+            });
+        })
     }
 
     componentDidMount() {
-        const unsubscribe = fire.auth().onAuthStateChanged(async user => {
-            if ( user ) {
-                const { email } = user;
-                const ref = fire.database().ref().child('user').orderByChild('email').equalTo(email);
-                ref.on('value', async userinformation => {
-                    const [data] = Object.values(userinformation.val());
-                    const { role } = data;
-                    if ( role === 0) {
-                        await this.setState({ redirect: '/admin/moneylenders'});
-                    } else if ( role === 1 ) {
-                        await this.setState({ redirect: '/user/moneylenders' });
-                    } else {
-                        await this.setState({ redirect: '/moneylender/users'});
-                    }
-                    await this.setState({ isLoading: false, authenticated: true });
-                    ref.off('value');
-                });
-            } else {
-                await this.setState({ isLoading: false, authenticated: false });
-            }
-            unsubscribe();
-        });
+        this.authenticate();
     }
 
     render(){

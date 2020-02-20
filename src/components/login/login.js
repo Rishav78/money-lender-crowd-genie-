@@ -7,7 +7,7 @@ function Login(props) {
     const [email, onChangeEmail] = useState('');
     const [password, onChangePassword] = useState('');
 
-    function handleFormSubmit() {
+    const handleFormSubmit = _ => {
         return async function(e) {
             e.preventDefault();
             try {
@@ -29,7 +29,7 @@ function Login(props) {
                     }
                 });
             } catch (err) {
-                console.log(err)
+                // console.log(err)
             }
         }
     }
